@@ -1,1 +1,3 @@
 # wte_gamification
+Women in Tech and Entrepreneurship is a groundbreaking organization, on a mission to support the most ambitious and innovative women at every stage of their journey in technology and entrepreneurship. 
+This project, with the support of R. Jean Louis at ENGINUITi Solutions, serves to gamify the existing onboarding and retention processes, thereby enhancing the member experience.  

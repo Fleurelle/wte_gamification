@@ -7,6 +7,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+<!-- I dont think we need to authenticate here since this is the landing page -->
 Hi {{ user.username }}!
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}
@@ -14,9 +15,7 @@ Hi {{ user.username }}!
 </form>
 
 {% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a>
-<a href="{% url 'signup' %}">Sign Up</a>
+{% include 'registration/login.html' %}
 {% endif %}
 
 {% endblock %}

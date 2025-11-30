@@ -1,6 +1,9 @@
 from django.conf import settings
 from django.db import models
 
+from django.urls import reverse
+
+
 class Attendance(models.Model):
     event_name = models.CharField(max_length=200)
     event_date = models.DateField()
@@ -13,6 +16,9 @@ class Attendance(models.Model):
         related_name="attended_events",
         null=True
     )
+
+    def get_absolute_url(self):
+        return reverse("community")
 
     def __str__(self):
         return (

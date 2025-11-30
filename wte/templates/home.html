@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-<!-- This is the user homepage. In other words, the dashboard -->
+<!-- This is the user homepage. In other words, the landing page -->
 
 {% block title %} Home {% endblock %}
 
@@ -8,11 +8,13 @@
 
 {% if user.is_authenticated %}
 <!-- I dont think we need to authenticate here since this is the landing page -->
-Hi {{ user.username }}!
+
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}
-  <button type="submit">Log Out</button>
+  {% include 'dashboard/navbar.html' %}
+  <!-- <button type="submit">Log Out</button> -->
 </form>
+<h1>Hi {{ user.username }}!</h1>
 
 {% else %}
 {% include 'registration/login.html' %}

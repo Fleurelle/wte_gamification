@@ -18,14 +18,24 @@ from django.views.generic.edit import FormView
 
 from .forms import CommunityAttendanceForm
 
+from .models import Attendance
+
 # Successful event submission view
 class SuccessView(TemplateView):
     template_name = "success.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # TODO event_name in success message
-        context['message'] = "Thank you for registering your attendance to event_name!"
+
+        last_attendance = Attendance.objects.filter(
+            attendee=self.request.user
+        ).order_by('-id')[:1].first()
+        
+        if last_attendance:
+            context['message'] = f"Thank you for registering your attendance to {last_attendance.event_name}!"
+        else:
+            context['message'] = "Thank you for registering your attendance!"
+            
         return context
 
 class CommunityAttendanceView(FormView):

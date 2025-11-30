@@ -41,6 +41,8 @@ class CustomLoginView(LoginView):
             try:
                 user_obj = User.objects.get(username=username)
                 messages.error(self.request, 'Invalid username or password. Please try again.')
+                # TODO in the error message for existing username, be sure to include the incorrect entered username for reference. 
+                # TODO if username exists, send user to log in page
             except User.DoesNotExist:
                 messages.error(self.request, 'Account not found. Please click the Sign Up button below.')
         # If authentication failed for other reasons

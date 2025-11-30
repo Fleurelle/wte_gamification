@@ -44,8 +44,9 @@ class CommunityAttendanceView(FormView):
 
     @method_decorator(login_required)
     def get(self, request):
+        form = self.get_form()
         context = {
-            "form_data": f"{self.get_form()}"
+            "form_data": form
         }
         # TODO: set attendee to logged in user 
         # TODO: disable attendee field editing

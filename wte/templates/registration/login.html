@@ -6,32 +6,48 @@
     <div class="card border-0 shadow-lg" style="max-width: 500px;">
         <div class="card-body px-md-6 py-6">
             <h1 class="text-center mb-4">Welcome!</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags|default:'info' }} mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             <form action="{% url 'login' %}" method="post" class="needs-validation" novalidate>
                 {% csrf_token %}
                 
                 <div class="mb-4">
                     <label for="id_username" class="form-label fs-6 fw-medium">Username</label>
                     <input type="text" 
-                           class="form-control form-control-lg" 
+                           class="form-control form-control-lg {% if form.username.errors %}is-invalid{% endif %}"" 
                            id="id_username" 
                            name="username" 
                            required
                            style="min-width: 400px;">
                     <div class="invalid-feedback">
-                        Please enter your username.
+                        {% if form.username.errors %}
+                            {{ form.username.errors|first }}
+                        {% else %}
+                            Please enter your username.
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label for="id_password" class="form-label fs-6 fw-medium">Password</label>
                     <input type="password" 
-                           class="form-control form-control-lg" 
+                           class="form-control form-control-lg {% if form.password.errors %}is-invalid{% endif %}" 
                            id="id_password" 
                            name="password" 
                            required
                            style="min-width: 400px;">
                     <div class="invalid-feedback">
-                        Please enter your password.
+                        {% if form.password.errors %}
+                            {{ form.password.errors|first }}
+                        {% else %}
+                            Please enter your password.
+                        {% endif %}
                     </div>
                 </div>
 
@@ -47,6 +63,8 @@
 
 {% endblock %}
 <!-- 1. Add error handling 
-    a) for when users click enter without any input
-    b) for when users enter incorrect input 
-    c) for when users try to log in without having an existing account-->
+    a) for when users click log in without any input - it should tell them to enter something in the fields. DONE
+    b) for when users enter incorrect input - DONE
+    c) for when users try to log in without having an existing account - DONE
+    d) for when users enter username with no password. It should tell them to enter a password. And vice versa - DONE(ish)
+-->

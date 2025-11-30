@@ -32,6 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = "home"
+# TODO may need to update the login redirect url to "login" rather than home
 LOGOUT_REDIRECT_URL = "home"
 
 # Application definition

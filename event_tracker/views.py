@@ -12,18 +12,25 @@ from django.urls import reverse_lazy
 
 from django.utils.decorators import method_decorator
 
+from django.views.generic import TemplateView
+
 from django.views.generic.edit import FormView
 
 from .forms import CommunityAttendanceForm
 
+# Successful event submission view
+class SuccessView(TemplateView):
+    template_name = "success.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # TODO event_name in success message
+        context['message'] = "Thank you for registering your attendance to event_name!"
+        return context
 
 class CommunityAttendanceView(FormView):
     template_name = "attendance/community_event.html"
     form_class = CommunityAttendanceForm
-
-    # def form_valid(self, form):
-    #     form.register_attendance()
-    #     return super().form_valid(form)
 
     @method_decorator(login_required)
     def get(self, request):
@@ -48,7 +55,8 @@ class CommunityAttendanceView(FormView):
             form.save()
             
             # Redirect to success page
-            return redirect(reverse_lazy("success!"))
+            return redirect(reverse_lazy("success"))
+            # TODO create success page - will need to create a view
         else:
             # Render the form again with error messages
             return TemplateResponse(request, self.template_name, {

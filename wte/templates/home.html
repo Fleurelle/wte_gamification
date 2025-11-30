@@ -14,7 +14,7 @@
   {% include 'dashboard/navbar.html' %}
   <!-- <button type="submit">Log Out</button> -->
 </form>
-<h1>Hi {{ user.username }}!</h1>
+<h1>Hi {{ user.first_name }}!</h1>
 
 {% else %}
 {% include 'registration/login.html' %}

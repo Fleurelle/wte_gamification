@@ -5,16 +5,60 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
+{% include 'dashboard/navbar.html' %}
 
 {% if user.is_authenticated %}
-<!-- I dont think we need to authenticate here since this is the landing page -->
+<div class="dashboard-container">
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h1 class="display-4">Hi {{ user.first_name }}!</h1>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<form action="{% url 'logout' %}" method="post">
-  {% csrf_token %}
-  {% include 'dashboard/navbar.html' %}
-  <!-- <button type="submit">Log Out</button> -->
-</form>
-<h1>Hi {{ user.first_name }}!</h1>
+    <!-- Bottom Sections -->
+    <section class="bottom-sections">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Rewards Section -->
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <h2>Rewards Earned</h2>
+              </div>
+              <div class="card-body">
+                <!-- Rewards content will go here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Events Section -->
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <h2>
+                  Events Attended
+                  <a class="add-event-container" href="{% url 'community' %}">
+                    Add Event
+                  </a>
+                </h2>
+              </div>
+              <div class="card-body">
+                <!-- Events content will go here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
 
 {% else %}
 {% include 'registration/login.html' %}

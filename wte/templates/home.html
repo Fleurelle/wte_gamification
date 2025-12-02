@@ -34,6 +34,7 @@
               </div>
               <div class="card-body">
                 <!-- Rewards content will go here -->
+                <!-- TODO rewards tabulation -->
               </div>
             </div>
           </div>
@@ -50,12 +51,34 @@
                 </h2>
               </div>
               <div class="card-body">
-                <!-- Events content will go here -->
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Event Name</th>
+                      <th>Event Date</th>
+                      <th>Event Organizer</th>
+                      <th>Points Awarded</th>
+                    </tr>
+                  </thead>
+                  
+                  {% for event in user.attended_events.all %}
+                  {% if user.attended_events.exists %}
+                  <tbody>
+                    <tr>
+                      <td>{{ event.event_name }}</td>
+                      <td>{{ event.event_date|date:"F j, Y" }}</td>
+                      <td>{{ event.event_organizer }}</td>
+                      <td>{% if event.is_internal %}10{% else %}8{% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+
               </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
   </main>
 </div>

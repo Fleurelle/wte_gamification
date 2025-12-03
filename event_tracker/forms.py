@@ -15,14 +15,17 @@ class CommunityAttendanceForm(forms.ModelForm):
             'is_internal': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
     
-    def register_attendance(self):
-        pass
+    # def register_attendance(self):
+    #     pass
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        # Make all fields required
-        for field in self.fields.values():
-            field.required = True 
+
+        if user is not None:
+            self.fields['attendee'].queryset = User.objects.filter(pk=user.pk)
+            self.fields['attendee'].initial = user
+            self.fields['attendee'].disabled = True
 
         # Customize field labels
         self.fields['event_name'].label = 'Event Name'
@@ -31,12 +34,9 @@ class CommunityAttendanceForm(forms.ModelForm):
         self.fields['is_internal'].label = 'Check this box if this a WTE hosted event'
 
 
-
 # TODO:
 # 1) date field to be an actual date field, not text - DONE
 # 2) This does not allow users to modify their entries (submitted events)
-# 3) ensure that the attendee field is already auto populated in the form
-# 4) the internal event dropdown in the form is disabled on the frontend 
-    # a) Enable form
-    # b) Ensure tht form is a dropdown
+# 3) ensure that the attendee field is already auto populated in the form - DONE
+# 4) the internal event dropdown in the form is enabled on the frontend - DONE
 

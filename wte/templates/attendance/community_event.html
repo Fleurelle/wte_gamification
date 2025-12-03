@@ -23,7 +23,12 @@
                     {% if field.field.widget.input_type == 'checkbox' %}
                         {{ field }}
                     {% elif field.field.widget.input_type == 'select'%}
-                        {{ field }}
+                    <select class="form-control form-control-lg {% if field.errors %}is-invalid{% endif %}" 
+                        id="{{ field.id_for_label }}"
+                        name="{{ field }}"
+                        style="min-width: 400px;">
+                    </select>
+                        <!-- {{ field }} -->
                     {% else %}
                         <input type="{{ field.field.widget.input_type }}"
                             class="form-control form-control-lg {% if field.errors %}is-invalid{% endif %}"

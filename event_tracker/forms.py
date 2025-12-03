@@ -35,8 +35,5 @@ class CommunityAttendanceForm(forms.ModelForm):
 
 
 # TODO:
-# 1) date field to be an actual date field, not text - DONE
 # 2) This does not allow users to modify their entries (submitted events)
-# 3) ensure that the attendee field is already auto populated in the form - DONE
-# 4) the internal event dropdown in the form is enabled on the frontend - DONE
 

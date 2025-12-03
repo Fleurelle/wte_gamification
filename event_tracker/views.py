@@ -56,7 +56,6 @@ class CommunityAttendanceView(FormView):
 
         return TemplateResponse(request, self.template_name, context)
 
-    # TODO: post method to submit the format
     @method_decorator(login_required)
     def post(self, request):
         form = self.get_form()
@@ -69,22 +68,15 @@ class CommunityAttendanceView(FormView):
             
             # Redirect to success page
             return redirect(reverse_lazy("success"))
-            # TODO create success page - will need to create a view - DONE
         else:
             # Render the form again with error messages
             return TemplateResponse(request, self.template_name, {
                 "form_data": form
             })
 
-# TODO: set attendee to logged in user 
-# TODO: disable attendee field editing
-# TODO ensure that admin is not in the assignee dropdown 
-# TODO - is_internal field is disabled. It needs to be a dropdown containing yes or no. Not a checkbox.
-# TODO change is_internal to Is the WTE organized event?
 # TODO - 
 #     internal events == 10 pts
 #     community events == 8 pts
 #     slack discussions/post == 5 pts
 #     referrals == 6 pts
 #     joining the board == 12 pts
-# TODO ensure that the date field in the form_data is a date field, not a text field - DONE

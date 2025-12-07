@@ -1,57 +1,74 @@
-{% extends "base.html" %}
+{% load static %}
 
-{% block content %}
-<div class="sidebar-container">
-    <!-- Sidebar -->
-    <nav class="sidebar bg-primary">
-        <div class="sidebar-header">
-            <button class="navbar-toggler sidebar-toggle" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#sidebar-content" aria-controls="sidebar-content" 
-                    aria-expanded="true" aria-label="Toggle sidebar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<!-- <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user-profile' request.user.pk %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Log Out</button>
+                    </form>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+                </li>
+            </ul>
+            {% endif %}
         </div>
-
-        <div id="sidebar-content" class="collapse show">
-            <div class="sidebar-content">
-                {% if user.is_authenticated %}
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'home' %}">
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Profile
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <form action="{% url 'logout' %}" method="post" class="d-flex align-items-center">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-link nav-link text-decoration-none">
-                                    Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="content">
-        <div class="container-fluid">
-            {% block main_content %}{% endblock %}
-        </div>
-    </main>
+    </div>
+</nav> -->
+<!-- Toggle button (e.g. in top-left) -->
+<div class="offcanvas offcanvas-start show text-bg-dark sidebar-fixed" tabindex="-1" id="sidebarMenu"
+    aria-labelledby="sidebarMenuLabel" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center text-white text-decoration-none">
+            <img src="{% static 'images/WTE_logo.png' %}" alt="Logo" class="me-2" style="height: 32px;">
+        </a>
+    </div>
+    <div class="offcanvas-body">
+        {% if user.is_authenticated %}
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'user-profile' request.user.pk %}">Profile</a>
+            </li>
+            <li class="nav-item mt-3">
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-light w-100">Log Out</button>
+                </form>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'login' %}">Sign In</a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
 </div>
-{% endblock %}
 
-<!-- TODO: 
+<!-- TODO:
 1. add navbar elements
-    a) profile
-        Should only allow them to see their personal information
-    b) logout icon
-    c) home (dashboard)  -->
+a) profile
+Should only allow them to see their personal information
+b) logout icon
+c) home (dashboard) -->

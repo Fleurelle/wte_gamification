@@ -6,11 +6,10 @@
 
 {% block content %}
 {% include 'dashboard/navbar.html' %}
-
 {% if user.is_authenticated %}
 <div class="dashboard-container">
   <!-- Main Content -->
-  <main class="main-content">
+  <section class="main-content">
     <!-- Welcome Section -->
     <section class="welcome-section">
       <div class="container-fluid">
@@ -60,7 +59,7 @@
                       <th>Points Awarded</th>
                     </tr>
                   </thead>
-                  
+
                   {% for event in user.attended_events.all %}
                   {% if user.attended_events.exists %}
                   <tbody>
@@ -80,7 +79,7 @@
           </div>
         </div>
     </section>
-  </main>
+  </section>
 </div>
 
 {% else %}

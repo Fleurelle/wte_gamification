@@ -1,12 +1,22 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from .forms import CustomUserCreationForm
+
+
+@login_required
+def user_profile(request, pk):
+    user_obj = get_object_or_404(User, pk=pk)
+    context = {
+        "user_obj": user_obj,
+    }
+    return render(request, "registration/profile.html", context)
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm

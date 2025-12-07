@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'dashboard/navbar.html' %}
+  <h1>Profile for {{ user_obj.username }}</h1>
+  <p>First name: {{ user_obj.first_name }}</p>
+  <p>Last name: {{ user_obj.last_name }}</p>
+  <p>Email: {{ user_obj.email }}</p>
+{% endblock %}
+
+<!-- TODO 
+ a) Change password -->

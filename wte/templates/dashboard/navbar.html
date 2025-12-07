@@ -49,6 +49,9 @@
             <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'user-profile' request.user.pk %}">Profile</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'community' %}">Register Attendance</a>
+            </li>
             <li class="nav-item mt-3">
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}

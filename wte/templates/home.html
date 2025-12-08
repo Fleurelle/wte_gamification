@@ -6,84 +6,85 @@
 
 {% block content %}
 {% include 'dashboard/navbar.html' %}
-{% if user.is_authenticated %}
-<div class="dashboard-container">
-  <!-- Main Content -->
-  <section class="main-content">
-    <!-- Welcome Section -->
-    <section class="welcome-section">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <h1 class="display-4">Hi {{ user.first_name }}!</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bottom Sections -->
-    <section class="bottom-sections">
-      <div class="container-fluid">
-        <div class="row">
-          <!-- Rewards Section -->
-          <div class="col">
-            <div class="card">
-              <div class="card-header">
-                <h2>Rewards Earned</h2>
-              </div>
-              <div class="card-body">
-                <!-- Rewards content will go here -->
-                <!-- TODO rewards tabulation -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Events Section -->
-          <div class="col">
-            <div class="card">
-              <div class="card-header">
-                <h2>
-                  Events Attended
-                  <a class="add-event-container" href="{% url 'community' %}">
-                    Add Event
-                  </a>
-                </h2>
-              </div>
-              <div class="card-body">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Event Name</th>
-                      <th>Event Date</th>
-                      <th>Event Organizer</th>
-                      <th>Points Awarded</th>
-                    </tr>
-                  </thead>
-
-                  {% for event in user.attended_events.all %}
-                  {% if user.attended_events.exists %}
-                  <tbody>
-                    <tr>
-                      <td>{{ event.event_name }}</td>
-                      <td>{{ event.event_date|date:"F j, Y" }}</td>
-                      <td>{{ event.event_organizer }}</td>
-                      <td>{% if event.is_internal %}10{% else %}8{% endif %}</td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                  </tbody>
-                </table>
-
-              </div>
+<div class="main-with-sidebar">
+  {% if user.is_authenticated %}
+  <div class="dashboard-container">
+    <!-- Main Content -->
+    <section class="main-content">
+      <!-- Welcome Section -->
+      <section class="welcome-section">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <h1 class="display-4">Hi {{ user.first_name }}!</h1>
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- Bottom Sections -->
+      <section class="bottom-sections">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Rewards Section -->
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  <h2>Rewards Earned</h2>
+                </div>
+                <div class="card-body">
+                  <!-- Rewards content will go here -->
+                  <!-- TODO rewards tabulation -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Events Section -->
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  <h2>
+                    Events Attended
+                    <a class="add-event-container" href="{% url 'community' %}">
+                      Add Event
+                    </a>
+                  </h2>
+                </div>
+                <div class="card-body">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Event Name</th>
+                        <th>Event Date</th>
+                        <th>Event Organizer</th>
+                        <th>Points Awarded</th>
+                      </tr>
+                    </thead>
+
+                    {% for event in user.attended_events.all %}
+                    {% if user.attended_events.exists %}
+                    <tbody>
+                      <tr>
+                        <td>{{ event.event_name }}</td>
+                        <td>{{ event.event_date|date:"F j, Y" }}</td>
+                        <td>{{ event.event_organizer }}</td>
+                        <td>{% if event.is_internal %}10{% else %}8{% endif %}</td>
+                      </tr>
+                      {% endif %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
     </section>
-  </section>
+  </div>
+
+  {% else %}
+  {% include 'registration/login.html' %}
+  {% endif %}
 </div>
-
-{% else %}
-{% include 'registration/login.html' %}
-{% endif %}
-
 {% endblock %}

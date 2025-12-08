@@ -2,11 +2,70 @@
 
 {% block content %}
 {% include 'dashboard/navbar.html' %}
+
 <div class="main-with-sidebar">
-    <h1>Profile for {{ user_obj.username }}</h1>
-    <p>First name: {{ user_obj.first_name }}</p>
-    <p>Last name: {{ user_obj.last_name }}</p>
-    <p>Email: {{ user_obj.email }}</p>
+    <div class="container py-5">
+        <div class="profile-card shadow-sm rounded-4 mx-auto">
+            <div class="p-4 p-md-5">
+
+                <!-- Top header area (avatar, name, edit button) -->
+                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center mb-3 mb-md-0">
+                        <div class="profile-avatar rounded-circle me-3">
+                            <!-- TODO render user image here -->
+                        </div>
+                        <div>
+                            <h3 class="mb-1">{{ user.get_full_name }}</h3>
+                            <small class="text-muted">{{ user.email }}</small>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary">
+                        <!-- TODO create edit functionality -->
+                        Edit
+                    </a>
+                </div>
+
+                <!-- Form-style info layout -->
+                <div class="row g-3 g-md-4">
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted mb-1">First Name</label>
+                        <div class="form-control bg-light border-0">
+                            {{ user.first_name }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted mb-1">Last Name</label>
+                        <div class="form-control bg-light border-0">
+                            {{ user.last_name }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted mb-1">Username</label>
+                        <div class="form-control bg-light border-0">
+                            {{ user.username }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted mb-1">Email</label>
+                        <div class="form-control bg-light border-0">
+                            {{ user.email }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted mb-1">Country</label>
+                        <div class="form-control bg-light border-0">
+                            {{ profile.country }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

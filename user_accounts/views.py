@@ -1,9 +1,10 @@
+from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -60,3 +61,8 @@ class CustomLoginView(LoginView):
             messages.error(self.request, 'Authentication failed. Please try again.')
             
         return super().form_invalid(form)
+    
+def logout_view(request):
+    logout(request)
+
+    return redirect(f"{settings.LOGOUT_REDIRECT_URL}")

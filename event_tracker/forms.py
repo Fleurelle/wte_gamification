@@ -42,10 +42,15 @@ class CommunityAttendanceForm(forms.ModelForm):
             return event_date
 
         today = date.today()
-        # Only allow dates in the same year and month as today
+        # 1) Must be in the same year and month as today
         if event_date.year != today.year or event_date.month != today.month:
             raise forms.ValidationError(
                 "You can only submit activities for the current month."
+            )
+        # 2) Must not be in the future
+        if event_date > today:
+            raise forms.ValidationError(
+                "You cannot register attendance for a future date."
             )
         return event_date
 

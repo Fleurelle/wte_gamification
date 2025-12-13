@@ -16,7 +16,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col">
-              <h1 class="display-4">Hi {{ user.first_name }}!</h1>
+              <h1 class="display-4 header-font">Hi <span class="user-name-font">{{ user.first_name }}</span>!</h1>
             </div>
           </div>
         </div>
@@ -30,8 +30,8 @@
             <!-- Card 1: Rewards -->
             <div class="col-md-4 mb-3 mb-md-0">
               <div class="card h-100">
-                <div class="card-header">
-                  <h2 class="h5 mb-0">Rewards Earned</h2>
+                <div class="card-header card-header-gradient-1">
+                  <h2 class="h5 mb-0">Rewards Earned This Month</h2>
                 </div>
                 <div class="card-body">
                   <!-- Rewards content will go here -->
@@ -42,8 +42,8 @@
             <!-- Card 2: placeholder / summary -->
             <div class="col-md-4 mb-3 mb-md-0">
               <div class="card h-100">
-                <div class="card-header">
-                  <h2 class="h5 mb-0">Events Summary</h2>
+                <div class="card-header card-header-gradient-2">
+                  <h2 class="h5 mb-0">Rewards Earned to Date</h2>
                 </div>
                 <div class="card-body">
                   <!-- Future stats or content -->
@@ -54,8 +54,8 @@
             <!-- Card 3: placeholder / community -->
             <div class="col-md-4">
               <div class="card h-100">
-                <div class="card-header">
-                  <h2 class="h5 mb-0">Community Activity</h2>
+                <div class="card-header card-header-gradient-3">
+                  <h2 class="h5 mb-0">Total Events Attended</h2>
                 </div>
                 <div class="card-body">
                   <!-- Future stats or content -->

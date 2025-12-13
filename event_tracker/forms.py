@@ -1,3 +1,4 @@
+from datetime import date
 from django import forms
 from django.contrib.auth.models import User
 from .models import Attendance
@@ -34,6 +35,19 @@ class CommunityAttendanceForm(forms.ModelForm):
         # self.fields['is_internal'].label = 'Check this box if this a WTE hosted event'
         self.fields["activity_type"].label = "Activity Type"
         self.fields["proof_image"].label = "Upload Image"
+
+    def clean_event_date(self):
+        event_date = self.cleaned_data.get("event_date")
+        if not event_date:
+            return event_date
+
+        today = date.today()
+        # Only allow dates in the same year and month as today
+        if event_date.year != today.year or event_date.month != today.month:
+            raise forms.ValidationError(
+                "You can only submit activities for the current month."
+            )
+        return event_date
 
 
 # TODO:

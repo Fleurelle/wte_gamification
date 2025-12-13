@@ -29,15 +29,11 @@
                                 </select> -->
                                  {{ field }}
                             {% else %}
-                                <!-- <input type="{{ field.field.widget.input_type }}"
+                                <input type="{{ field.field.widget.input_type }}"
                                     class="form-control form-control-lg {% if field.errors %}is-invalid{% endif %}"
                                     id="{{ field.id_for_label }}" name="{{ field.html_name }}" 
                                     {% if field.field.required %}required{% endif %} 
-                                    style="min-width: 400px;"> -->
-                                    <input type="{{ field.field.widget.input_type }}" 
-                                    class="form-control form-control-lg" 
-                                    id="{{ field.id_for_label }}"
-                                    name="{{ field.html_name }}">
+                                    style="min-width: 400px;">
                             {% endif %}
 
                             <div class="invalid-feedback">

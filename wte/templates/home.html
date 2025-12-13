@@ -25,71 +25,96 @@
       <!-- Bottom Sections -->
       <section class="bottom-sections">
         <div class="container-fluid">
-          <div class="row">
-            <!-- Rewards Section -->
-            <div class="col">
-              <div class="card">
+          <!-- Top row: 3 cards -->
+          <div class="row mb-4">
+            <!-- Card 1: Rewards -->
+            <div class="col-md-4 mb-3 mb-md-0">
+              <div class="card h-100">
                 <div class="card-header">
-                  <h2>Rewards Earned</h2>
+                  <h2 class="h5 mb-0">Rewards Earned</h2>
                 </div>
                 <div class="card-body">
                   <!-- Rewards content will go here -->
-                  <!-- TODO rewards tabulation -->
                 </div>
               </div>
             </div>
 
-            <!-- Events Section -->
-            <div class="col">
-              <div class="card">
+            <!-- Card 2: placeholder / summary -->
+            <div class="col-md-4 mb-3 mb-md-0">
+              <div class="card h-100">
                 <div class="card-header">
-                  <h2>
-                    Events Attended
-                    <a class="add-event-container" href="{% url 'community' %}">
-                      Add Event
-                    </a>
-                  </h2>
+                  <h2 class="h5 mb-0">Events Summary</h2>
                 </div>
                 <div class="card-body">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Event Name</th>
-                        <th>Event Date</th>
-                        <th>Event Organizer</th>
-                        <th>Points Awarded</th>
-                      </tr>
-                    </thead>
+                  <!-- Future stats or content -->
+                </div>
+              </div>
+            </div>
 
-                    <tbody>
-                      {% for event in user.attended_events.all %}
-                      <tr>
-                        <td>{{ event.event_name }}</td>
-                        <td>{{ event.event_date|date:"F j, Y" }}</td>
-                        <td>{{ event.event_organizer }}</td>
-                        <td>
-                          {% if event.activity_type == "event_external" %}
-                          8
-                          {% else %}
-                          10
-                          {% endif %}
-                        </td>
-                      </tr>
-                      {% empty %}
-                      <tr>
-                        <td colspan="4">No events yet.</td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-
-
+            <!-- Card 3: placeholder / community -->
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-header">
+                  <h2 class="h5 mb-0">Community Activity</h2>
+                </div>
+                <div class="card-body">
+                  <!-- Future stats or content -->
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Bottom row: full-width events table -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h2 class="h5 mb-0">Events Attended</h2>
+                  <a class="add-event-container" href="{% url 'community' %}">
+                    Add Event
+                  </a>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                      <thead>
+                        <tr>
+                          <th>Event Name</th>
+                          <th>Event Date</th>
+                          <th>Event Organizer</th>
+                          <th>Points Awarded</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for event in user.attended_events.all %}
+                        <tr>
+                          <td>{{ event.event_name }}</td>
+                          <td>{{ event.event_date|date:"F j, Y" }}</td>
+                          <td>{{ event.event_organizer }}</td>
+                          <td>
+                            {% if event.activity_type == "event_external" %}
+                            8
+                            {% else %}
+                            10
+                            {% endif %}
+                          </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                          <td colspan="4">No events yet.</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
-    </section>
+
   </div>
 
   {% else %}

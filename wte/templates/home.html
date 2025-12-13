@@ -61,19 +61,28 @@
                       </tr>
                     </thead>
 
-                    {% for event in user.attended_events.all %}
-                    {% if user.attended_events.exists %}
                     <tbody>
+                      {% for event in user.attended_events.all %}
                       <tr>
                         <td>{{ event.event_name }}</td>
                         <td>{{ event.event_date|date:"F j, Y" }}</td>
                         <td>{{ event.event_organizer }}</td>
-                        <td>{% if event.is_internal %}10{% else %}8{% endif %}</td>
+                        <td>
+                          {% if event.activity_type == "event_external" %}
+                          8
+                          {% else %}
+                          10
+                          {% endif %}
+                        </td>
                       </tr>
-                      {% endif %}
+                      {% empty %}
+                      <tr>
+                        <td colspan="4">No events yet.</td>
+                      </tr>
                       {% endfor %}
                     </tbody>
                   </table>
+
 
                 </div>
               </div>

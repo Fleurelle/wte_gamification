@@ -10,6 +10,8 @@ from django.template.response import TemplateResponse
 
 from django.urls import reverse_lazy
 
+from django.utils import timezone
+
 from django.utils.decorators import method_decorator
 
 from django.views.generic import TemplateView
@@ -58,13 +60,30 @@ class CommunityAttendanceView(FormView):
 
     @method_decorator(login_required)
     def post(self, request):
-        form = self.get_form()
+        # form = self.get_form()
+        form = self.form_class(
+            data=request.POST,
+            files=request.FILES,
+            user=request.user,
+    )
         if form.is_valid():
-            # Set the current user as attendee
-            form.instance.attendee = request.user
+            # # Set the current user as attendee
+            # form.instance.attendee = request.user
             
-            # Save the form
-            form.save()
+            # # Save the form
+            # form.save()
+
+            attendance = form.save(commit=False)
+            attendance.attendee = request.user
+
+            attendance.save()
+
+            # derive points from activity_type
+            activity_type = attendance.activity_type
+            if activity_type == "event_external":
+                earned_points = 8
+            else:
+                earned_points = 10
             
             # Redirect to success page
             return redirect(reverse_lazy("success"))
@@ -80,3 +99,4 @@ class CommunityAttendanceView(FormView):
 #     slack discussions/post == 5 pts
 #     referrals == 6 pts
 #     joining the board == 12 pts
+# MAYBE - the form should change depending on the activity type

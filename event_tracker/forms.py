@@ -12,7 +12,7 @@ class CommunityAttendanceForm(forms.ModelForm):
                 'class': 'form-control form-control-lg',
                 'style': 'min-width: 400px;'
             }),
-            'is_internal': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            # 'is_internal': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
     
     # def register_attendance(self):
@@ -31,9 +31,12 @@ class CommunityAttendanceForm(forms.ModelForm):
         self.fields['event_name'].label = 'Event Name'
         self.fields['event_date'].label = 'Event Date'
         self.fields['event_organizer'].label = 'Event Organizer'
-        self.fields['is_internal'].label = 'Check this box if this a WTE hosted event'
+        # self.fields['is_internal'].label = 'Check this box if this a WTE hosted event'
+        self.fields["activity_type"].label = "Activity Type"
+        self.fields["proof_image"].label = "Upload Image"
 
 
 # TODO:
 # 2) This does not allow users to modify their entries (submitted events)
+# 3) Anytime the is_internal button is clicked, users should receive 10 pts. Else, see event_tracker views
 

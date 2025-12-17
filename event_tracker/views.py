@@ -93,6 +93,20 @@ class CommunityAttendanceView(FormView):
                 "form_data": form
             })
 
+
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+    @method_decorator(login_required)    
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        user_events = Attendance.objects.filter(
+            attendee=self.request.user)
+        context['total_events_attended'] = user_events.count()
+
+        return self.render_to_response(context)
+    
+
 # TODO - 
 #     internal events == 10 pts
 #     community events == 8 pts

@@ -105,7 +105,7 @@ class HomeView(TemplateView):
 
         # Total # of events attended
         user_events = Attendance.objects.filter(
-            attendee=self.request.user)
+            attendee=self.request.user).order_by("-event_date")
         
         total_events_attended = user_events.count()
 
@@ -133,12 +133,3 @@ class HomeView(TemplateView):
         }
 
         return self.render_to_response(context)
-    
-
-# TODO - 
-#     internal events == 10 pts
-#     community events == 8 pts
-#     slack discussions/post == 5 pts
-#     referrals == 6 pts
-#     joining the board == 12 pts
-# MAYBE - the form should change depending on the activity type

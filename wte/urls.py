@@ -15,4 +15,3 @@ urlpatterns = [
     # path("", TemplateView.as_view(template_name="home.html"), name="home")
     path("", etv.HomeView.as_view(), name="home")
 ]
-# TODO http://localhost:8000/ sending user to an unwanted page. Fix that

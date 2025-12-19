@@ -54,8 +54,3 @@ class CommunityAttendanceForm(forms.ModelForm):
             )
         return event_date
 
-
-# TODO:
-# 2) This does not allow users to modify their entries (submitted events)
-# 3) Anytime the is_internal button is clicked, users should receive 10 pts. Else, see event_tracker views
-

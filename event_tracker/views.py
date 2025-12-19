@@ -2,6 +2,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 
+from django.core.paginator import Paginator
+
 from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
@@ -125,8 +127,13 @@ class HomeView(TemplateView):
         for event in events_this_month:
             rewards_this_month += 8 if event.activity_type == 'event_external' else 10
 
+        # Pagination: 8 events per page
+        paginator = Paginator(user_events, 8)
+        page_number = request.GET.get("page")
+        user_events_pagination = paginator.get_page(page_number)
+
         context = {
-            'user_events': user_events,
+            'user_events': user_events_pagination,
             'total_events_attended': total_events_attended,
             'rewards_to_date': rewards_to_date,
             'rewards_this_month': rewards_this_month,

@@ -7,7 +7,6 @@
 {% block content %}
 {% include 'dashboard/navbar.html' %}
 <div class="main-with-sidebar">
-  {% if user.is_authenticated %}
   <div class="dashboard-container">
     <!-- Main Content -->
     <section class="main-content">
@@ -109,24 +108,59 @@
                         {% endfor %}
                       </tbody>
                     </table>
+                    <!-- PAGINATION -->
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                      <div>
+                        <!-- Page {{ user_events.number }} of {{ user_events.paginator.num_pages }} -->
+                      </div>
+
+                      <nav aria-label="Events pagination">
+                        <ul class="pagination mb-0">
+                          {% if user_events.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ user_events.previous_page_number }}">Previous</a>
+                          </li>
+                          {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                          </li>
+                          {% endif %}
+
+                          {% for num in user_events.paginator.page_range %}
+                          {% if num == user_events.number %}
+                          <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                          </li>
+                          {% else %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                          </li>
+                          {% endif %}
+                          {% endfor %}
+
+                          {% if user_events.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ user_events.next_page_number }}">Next</a>
+                          </li>
+                          {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                          </li>
+                          {% endif %}
+                        </ul>
+                      </nav>
+                    </div>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </section>
-
   </div>
-
-  {% else %}
-  {% include 'registration/login.html' %}
-  {% endif %}
 </div>
 {% endblock %}
 
 <!-- TODO
-1) pagination on events attended section
-2) count for 3 top cards
 3) enlarge ADD NEW button on home page -->

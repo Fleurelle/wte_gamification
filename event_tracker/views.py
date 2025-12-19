@@ -22,6 +22,8 @@ from .forms import CommunityAttendanceForm
 
 from .models import Attendance
 
+import pytz
+
 # Successful event submission view
 class SuccessView(TemplateView):
     template_name = "success.html"
@@ -100,9 +102,34 @@ class HomeView(TemplateView):
     @method_decorator(login_required)    
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+
+        # Total # of events attended
         user_events = Attendance.objects.filter(
             attendee=self.request.user)
-        context['total_events_attended'] = user_events.count()
+        
+        total_events_attended = user_events.count()
+
+        # Rewards earned to date (of all time)
+        rewards_to_date = 0
+        for event in user_events:
+            rewards_to_date += 8 if event.activity_type == 'event_external' else 10
+
+        # Rewards earned this month
+        eastern_tz = pytz.timezone("America/New_York")
+        today = timezone.now().astimezone(eastern_tz)
+        events_this_month = user_events.filter(
+            event_date__year=today.year,
+            event_date__month=today.month,
+        )
+        rewards_this_month = 0
+        for event in events_this_month:
+            rewards_this_month += 8 if event.activity_type == 'event_external' else 10
+
+        context = {
+            'total_events_attended': total_events_attended,
+            'rewards_to_date': rewards_to_date,
+            'rewards_this_month': rewards_this_month,
+        }
 
         return self.render_to_response(context)
     

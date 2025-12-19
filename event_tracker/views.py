@@ -126,6 +126,7 @@ class HomeView(TemplateView):
             rewards_this_month += 8 if event.activity_type == 'event_external' else 10
 
         context = {
+            'user_events': user_events,
             'total_events_attended': total_events_attended,
             'rewards_to_date': rewards_to_date,
             'rewards_this_month': rewards_this_month,

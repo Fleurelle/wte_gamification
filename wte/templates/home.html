@@ -35,7 +35,7 @@
                 </div>
                 <div class="card-body">
                   <!-- Rewards content will go here -->
-                   {{ rewards_this_month }}
+                  {{ rewards_this_month }}
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="card-body">
                   <!-- Future stats or content -->
-                   {{ rewards_to_date }}
+                  {{ rewards_to_date }}
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="card-body">
                   <!-- Future stats or content -->
-                   {{ total_events_attended }}
+                  {{ total_events_attended }}
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for event in user.attended_events.all %}
+                        {% for event in user_events %}
                         <tr>
                           <td>{{ event.event_name }}</td>
                           <td>{{ event.event_date|date:"F j, Y" }}</td>

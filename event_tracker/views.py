@@ -71,16 +71,21 @@ class CommunityAttendanceView(FormView):
             user=request.user,
     )
         if form.is_valid():
-            # # Set the current user as attendee
-            # form.instance.attendee = request.user
-            
-            # # Save the form
-            # form.save()
-
             attendance = form.save(commit=False)
             attendance.attendee = request.user
 
             attendance.save()
+
+            # Create a notification for this attendance
+            Notification.objects.create(
+                type="attendance",
+                user=request.user,
+                message=(
+                    f"{request.user.get_full_name() or request.user.username} "
+                    f"registered attendance for {attendance.event_name} "
+                    f"on {attendance.event_date}."
+                ),
+            )
 
             # derive points from activity_type
             activity_type = attendance.activity_type

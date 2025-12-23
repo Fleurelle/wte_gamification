@@ -42,8 +42,6 @@ def staff_dashboard(request):
     }
     return render(request, "dashboard/staff-dashboard.html", context)
 
-# staff_admin/views.py
-
 @login_required
 def staff_notifications(request):
     if not request.user.is_staff:

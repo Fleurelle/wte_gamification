@@ -4,69 +4,53 @@
 {% include 'dashboard/navbar.html' %}
 
 <div class="main-with-sidebar">
-    <div class="container py-5">
-        <div class="profile-card shadow-sm rounded-4 mx-auto">
-            <div class="p-4 p-md-5">
-
-                <!-- Top header area (avatar, name, edit button) -->
-                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
-                    <div class="d-flex align-items-center mb-3 mb-md-0">
-                        <div class="profile-avatar rounded-circle me-3">
-                            <!-- TODO render user image here -->
-                        </div>
-                        <div>
-                            <h3 class="mb-1">{{ user.get_full_name }}</h3>
-                            <small class="text-muted">{{ user.email }}</small>
-                        </div>
+    <div class="profile-page">
+        <div class="profile-card">
+            <!-- Top header area -->
+            <div class="profile-header">
+                <div class="profile-user">
+                    <div class="profile-avatar">
+                        <!-- user image -->
                     </div>
-                    <a class="btn btn-primary">
-                        <!-- TODO create edit functionality -->
-                        Edit
-                    </a>
-                </div>
-
-                <!-- Form-style info layout -->
-                <div class="row g-3 g-md-4">
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted mb-1">First Name</label>
-                        <div class="form-control bg-light border-0">
-                            {{ user.first_name }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted mb-1">Last Name</label>
-                        <div class="form-control bg-light border-0">
-                            {{ user.last_name }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted mb-1">Username</label>
-                        <div class="form-control bg-light border-0">
-                            {{ user.username }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted mb-1">Email</label>
-                        <div class="form-control bg-light border-0">
-                            {{ user.email }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted mb-1">Country</label>
-                        <div class="form-control bg-light border-0">
-                            {{ profile.country }}
-                        </div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">{{ user.get_full_name }}</h3>
+                        <span class="profile-email">{{ user.email }}</span>
                     </div>
                 </div>
+                <button class="btn-edit">Edit</button>
+            </div>
 
+            <!-- Form-style info layout -->
+            <div class="profile-grid">
+                <div class="profile-field">
+                    <label>First Name</label>
+                    <div class="field-value">{{ user.first_name }}</div>
+                </div>
+
+                <div class="profile-field">
+                    <label>Last Name</label>
+                    <div class="field-value">{{ user.last_name }}</div>
+                </div>
+
+                <div class="profile-field">
+                    <label>Username</label>
+                    <div class="field-value">{{ user.username }}</div>
+                </div>
+
+                <div class="profile-field">
+                    <label>Email</label>
+                    <div class="field-value">{{ user.email }}</div>
+                </div>
+
+                <div class="profile-field">
+                    <label>Country</label>
+                    <div class="field-value">{{ profile.country }}</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 <!-- TODO 

@@ -48,3 +48,35 @@ class Attendance(models.Model):
         )
     
 # TODO UUID for usr account - this is because my user id in the url is only a single digit
+
+class Notification(models.Model):
+    NOTIFICATION_TYPES = [
+        ("attendance", "Attendance"),
+        ("signup", "New Account Created"),
+    ]
+
+    type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES)
+    # Which member triggered the event
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="notifications_created",
+    )
+    # FUTURE: Which attendance record
+    # attendance = models.ForeignKey(
+    #     "Attendance",
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     null=True,
+    #     related_name="notifications",
+    # )
+
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.get_type_display()} from {self.user} on {self.created_at:%Y-%m-%d %H:%M}"

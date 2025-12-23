@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "dashboard/navbar.html" %}
+<div class="main-with-sidebar">
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0">All Notifications</h1>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-primary">
+                    Mark all as read
+                </button>
+            </form>
+        </div>
+
+        <ul class="list-group">
+            {% for notification in notifications %}
+            <li class="list-group-item">
+                <strong>{{ notification.get_type_display }}:</strong>
+                {{ notification.message }}<br>
+                <small class="text-muted">
+                    {{ notification.created_at }} — from {{ notification.user.get_full_name|default:notification.user.username }}
+                </small>
+            </li>
+            {% empty %}
+            <li class="list-group-item">No notifications yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

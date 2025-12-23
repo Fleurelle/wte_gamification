@@ -22,7 +22,7 @@ from django.views.generic.edit import FormView
 
 from .forms import CommunityAttendanceForm
 
-from .models import Attendance
+from .models import Attendance, Notification
 
 import pytz
 
@@ -140,3 +140,4 @@ class HomeView(TemplateView):
         }
 
         return self.render_to_response(context)
+    

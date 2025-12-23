@@ -13,5 +13,6 @@ urlpatterns = [
     path("accounts/logout/", uav.logout_view, name="logout"),
     path("accounts/", include("django.contrib.auth.urls")),
     # path("", TemplateView.as_view(template_name="home.html"), name="home")
-    path("", etv.HomeView.as_view(), name="home")
+    path("", etv.HomeView.as_view(), name="home"),
+    path("staff/", include("staff_admin.urls")),
 ]

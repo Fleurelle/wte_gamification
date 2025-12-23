@@ -141,3 +141,13 @@ class HomeView(TemplateView):
 
         return self.render_to_response(context)
     
+    
+@login_required
+def home_router(request):
+    # staff users
+    if request.user.is_staff:
+        return redirect("staff-dashboard")
+    # Non‑staff: call HomeView so its context logic runs
+    view = HomeView.as_view()
+    return view(request)
+    

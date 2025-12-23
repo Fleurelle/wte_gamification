@@ -275,7 +275,6 @@ body {
 /* Homepage Ends */
 
 /* Event Registration Start */
-/* Page wrapper (re‑use from profile if you like) */
 .event-wrap {
   min-height: 100vh;
   display: flex;
@@ -285,18 +284,9 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* Center the card */
-/* .event-wrap {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
-
 /* Card */
 .event-card {
   width: 100%;
-  /* max-width: 500px; */
   background: #ffffff;
   border-radius: 24px;
   box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
@@ -425,3 +415,4 @@ body {
     padding: 24px 20px 28px;
   }
 }
+/* Event Registration End */

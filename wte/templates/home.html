@@ -15,7 +15,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col">
-              <h1 class="display-4 header-font">Hi <span class="user-name-font">{{ user.first_name }}</span>!</h1>
+              <h3 class="display-4 header-font">Hi {{ user.first_name }}!</h3>
             </div>
           </div>
         </div>
@@ -68,9 +68,9 @@
 
           <!-- Bottom row: full-width events table -->
           <div class="row">
-            <div class="col-12">
+            <div class="events-attended-card col-12">
               <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header card-header-gradient-4 d-flex justify-content-between align-items-center">
                   <h2 class="h5 mb-0">Events Attended</h2>
                   <a class="add-event-container" href="{% url 'community' %}">
                     Add Event

@@ -21,6 +21,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% if has_attendance_this_month %}
                                 {% for user in top_users %}
                                 <tr>
                                     <td>{{ user.attendee__first_name }} {{ user.attendee__last_name }}</td>
@@ -31,6 +32,11 @@
                                     <td colspan="2">No data yet.</td>
                                 </tr>
                                 {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="2">No attendance registered this month… yet.</td>
+                                </tr>
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -62,3 +68,9 @@
     </div>
 </div>
 {% endblock %}
+
+<!-- TODO 
+ 1 add notification icon that leads to notifications page
+ 2 add 'show all' button to notifications table which will lead to staff-notifications/. 
+There should be a max of 10 listed notification because I do not want this to scroll forever.
+  -->

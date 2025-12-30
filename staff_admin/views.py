@@ -25,7 +25,7 @@ def staff_dashboard(request):
                 )
             )
         )
-        .order_by("-total_points")[:10]
+        .order_by("-total_points")
     )
 
     # Latest notifications

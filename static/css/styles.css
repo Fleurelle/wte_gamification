@@ -416,3 +416,66 @@ body {
   }
 }
 /* Event Registration End */
+
+/* Staff Dashboard Start */
+.notification-bell {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(89, 49, 150, 0.1);
+  transition: all 0.2s ease;
+  margin-left: 16px;
+}
+
+.notification-bell:hover {
+  background: rgba(89, 49, 150, 0.2);
+  transform: scale(1.05);
+}
+
+.bell-icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.bell-body {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(36, 107, 253, 0.3);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: absolute;
+  top: 2px;
+  left: 4px;
+}
+
+.bell-clapper {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: rgba(36, 107, 253, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: 12px;
+  left: 8px;
+}
+
+.notification-dot {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 14px;
+  height: 14px;
+  background: #e74c3c;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 20;
+}
+
+/* Staff Dashboard Start */

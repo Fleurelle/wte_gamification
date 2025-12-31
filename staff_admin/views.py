@@ -36,6 +36,7 @@ def staff_dashboard(request):
     )
 
     unread_count = Notification.objects.filter(is_read=False).count()
+    print("DEBUG unread_count =", unread_count)
 
     # Check if there is any attendance this month (Eastern)
     eastern_tz = pytz.timezone("America/New_York")
@@ -63,7 +64,7 @@ def staff_notifications(request):
 
     notifications = Notification.objects.select_related("user").order_by("-created_at")
 
-    # mark all as read when visiting
+    # mark as read
     if request.method == "POST":
         notifications.filter(is_read=False).update(is_read=True)
         return redirect("staff-notifications")

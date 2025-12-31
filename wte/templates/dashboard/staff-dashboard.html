@@ -5,12 +5,28 @@
 <div class="main-with-sidebar">
     <div class="dashboard-container">
         <div class="container py-5">
-            <div class="d-flex align-items-center justify-content-between mb-4">
+            <!-- <div class="d-flex align-items-center justify-content-between mb-4">
                 <h1 class="mb-0">Hi {{ user.first_name }}!</h1>
+                {% if unread_count > 0 %}
                 <a href="{% url 'staff-notifications' %}" class="btn btn-sm btn-outline-primary">
                     Notifications
                 </a>
+                {% endif %}
+            </div> -->
+
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h1 class="mb-0">Hi {{ user.first_name }}!</h1>
+                <a href="{% url 'staff-notifications' %}" class="notification-bell">
+                    <div class="bell-icon">
+                        <span class="bell-body"></span>
+                        <span class="bell-clapper"></span>
+                    </div>
+                    {% if unread_count > 0 %}
+                    <span class="notification-dot"></span>
+                    {% endif %}
+                </a>
             </div>
+
 
             <div class="row">
                 <div class="events-attended-card col-12">
@@ -64,5 +80,5 @@
  2 add 'show all' button to notifications table which will lead to staff-notifications/. 
 There should be a max of 10 listed notification because I do not want this to scroll forever.
 3. Make it as pretty as the regular user dashboard - DONE
-4. pagination
+4. pagination on table
   -->

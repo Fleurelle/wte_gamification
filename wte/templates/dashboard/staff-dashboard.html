@@ -3,63 +3,52 @@
 {% block content %}
 {% include "dashboard/navbar.html" %}
 <div class="main-with-sidebar">
-    <div class="container py-5">
-        <h1 class="mb-4">Admin Dashboard</h1>
-
-        <div class="row mb-4">
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        Top Users by Rewards
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-sm mb-0">
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Total Points</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% if has_attendance_this_month %}
-                                {% for user in top_users %}
-                                <tr>
-                                    <td>{{ user.attendee__first_name }} {{ user.attendee__last_name }}</td>
-                                    <td>{{ user.total_points }}</td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="2">No data yet.</td>
-                                </tr>
-                                {% endfor %}
-                                {% else %}
-                                <tr>
-                                    <td colspan="2">No attendance registered this month… yet.</td>
-                                </tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <div class="dashboard-container">
+        <div class="container py-5">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h1 class="mb-0">Hi {{ user.first_name }}!</h1>
+                <a href="{% url 'staff-notifications' %}" class="btn btn-sm btn-outline-primary">
+                    Notifications
+                </a>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        Recent Notifications
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for notification in notifications %}
-                            <li class="list-group-item">
-                                <strong>{{ notification.get_type_display }}:</strong>
-                                {{ notification.message }}<br>
-                                <small class="text-muted">{{ notification.created_at }}</small>
-                            </li>
-                            {% empty %}
-                            <li class="list-group-item">No notifications yet.</li>
-                            {% endfor %}
-                        </ul>
+            <div class="row">
+                <div class="events-attended-card col-12">
+                    <div class="card">
+                        <div
+                            class="card-header card-header-gradient-4 d-flex justify-content-between align-items-center">
+                            <h2 class="h5 mb-0">Top Users by Rewards</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Total Points</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if has_attendance_this_month %}
+                                        {% for user in top_users %}
+                                        <tr>
+                                            <td>{{ user.attendee__first_name }} {{ user.attendee__last_name }}</td>
+                                            <td>{{ user.total_points }}</td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="2">No data yet.</td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td colspan="2">No attendance registered this month… yet.</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,8 +58,11 @@
 </div>
 {% endblock %}
 
+
 <!-- TODO 
- 1 add notification icon that leads to notifications page
+ 1 add notification icon that leads to notifications page - DONE
  2 add 'show all' button to notifications table which will lead to staff-notifications/. 
 There should be a max of 10 listed notification because I do not want this to scroll forever.
+3. Make it as pretty as the regular user dashboard - DONE
+4. pagination
   -->

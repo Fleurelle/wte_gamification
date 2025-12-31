@@ -61,13 +61,24 @@ def staff_dashboard(request):
 def staff_notifications(request):
     if not request.user.is_staff:
         return redirect("home")
-
+    
     notifications = Notification.objects.select_related("user").order_by("-created_at")
+    
+    # Mark individual notification as read
+    if request.method == "POST" and 'notification_id' in request.POST:
+        notification_id = request.POST['notification_id']
+        Notification.objects.filter(id=notification_id, is_read=False).update(is_read=True)
+
+    # Mark ALL as read
+    if request.method == "POST" and request.POST.get('mark_all'):
+        Notification.objects.filter(is_read=False).update(is_read=True)
+
+    # notifications = Notification.objects.select_related("user").order_by("-created_at")
 
     # mark as read
-    if request.method == "POST":
-        notifications.filter(is_read=False).update(is_read=True)
-        return redirect("staff-notifications")
+    # if request.method == "POST":
+    #     notifications.filter(is_read=False).update(is_read=True)
+    #     return redirect("staff-notifications")
 
     context = {
         "notifications": notifications,
@@ -76,8 +87,9 @@ def staff_notifications(request):
 
 
 # TODO:
-# Mark notifications as read
+# Mark individual notifications as read
 # clear notifications - staff-notifications/ page, not on the dashboard. 
 # timezone for notifications
+# Give 10 points for account creation
 
 

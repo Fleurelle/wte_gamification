@@ -4,29 +4,42 @@
 {% include "dashboard/navbar.html" %}
 <div class="main-with-sidebar">
     <div class="container py-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="mb-0">All Notifications</h1>
-            <form method="post">
+        <div class="notification-header">
+            <h1>All Notifications</h1>
+            <form method="post" class="mark-all-form">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-outline-primary">
+                <button type="submit" name="mark_all" value="1" class="mark-all-btn">
                     Mark all as read
                 </button>
             </form>
         </div>
 
-        <ul class="list-group">
+        <ul class="notifications-list">
             {% for notification in notifications %}
-            <li class="list-group-item">
-                <strong>{{ notification.get_type_display }}:</strong>
-                {{ notification.message }}<br>
-                <small class="text-muted">
-                    {{ notification.created_at }} — from {{ notification.user.get_full_name|default:notification.user.username }}
-                </small>
+            <li class="notification-item{% if notification.is_read %} read{% endif %}">
+                <form method="post" class="mark-read-form" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                    <button type="submit" class="mark-read-btn" style="background: none; border: none; padding: 0;"></button>
+                </form>
+                <div class="notification-content">
+                    <strong>{{ notification.get_type_display }}:</strong>
+                    {{ notification.message }}
+                    <div class="notification-meta">
+                        {{ notification.created_at }} — from {{ notification.user.get_full_name|default:notification.user.username }}
+                    </div>
+                </div>
             </li>
             {% empty %}
-            <li class="list-group-item">No notifications yet.</li>
+            <li class="notification-item empty">No notifications yet.</li>
             {% endfor %}
         </ul>
     </div>
 </div>
 {% endblock %}
+
+
+<!-- TODO
+1. marked as read
+2. redesign page 
+-->

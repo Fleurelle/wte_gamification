@@ -478,4 +478,94 @@ body {
   z-index: 20;
 }
 
-/* Staff Dashboard Start */
+/* Staff Dashboard End */
+
+/* Notifications Page Start */
+/* Notification page styles */
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.notification-header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.mark-all-form {
+    display: inline-block;
+}
+
+.mark-all-btn {
+    background: #593196;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.mark-all-btn:hover {
+    background: #bc90dc;
+}
+
+.notifications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-item {
+    padding: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-left: 4px solid #593196;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 1;
+}
+
+.notification-item:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transform: translateY(-1px);
+}
+
+.notification-item.read {
+    opacity: 0.6;
+    border-left-color: #a1a5b7;
+}
+
+.notification-item.read:hover {
+    opacity: 0.8;
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-content strong {
+    color: #2b2b33;
+    font-size: 1rem;
+}
+
+.notification-meta {
+    font-size: 0.875rem;
+    color: #a1a5b7;
+    margin-top: 0.25rem;
+}
+
+.notification-item.empty {
+    text-align: center;
+    color: #a1a5b7;
+    font-style: italic;
+    padding: 3rem;
+}
+
+/* Notifications Page End */

@@ -4,75 +4,124 @@
 {% include "dashboard/navbar.html" %}
 <div class="main-with-sidebar">
     <div class="dashboard-container">
-        <div class="container py-5">
-            <!-- <div class="d-flex align-items-center justify-content-between mb-4">
-                <h1 class="mb-0">Hi {{ user.first_name }}!</h1>
-                {% if unread_count > 0 %}
-                <a href="{% url 'staff-notifications' %}" class="btn btn-sm btn-outline-primary">
-                    Notifications
-                </a>
-                {% endif %}
-            </div> -->
-
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h1 class="mb-0">Hi {{ user.first_name }}!</h1>
-                <a href="{% url 'staff-notifications' %}" class="notification-bell">
-                    <div class="bell-icon">
-                        <span class="bell-body"></span>
-                        <span class="bell-clapper"></span>
-                    </div>
-                    {% if unread_count > 0 %}
-                    <span class="notification-dot"></span>
-                    {% endif %}
-                </a>
-            </div>
-
-
-            <div class="row">
-                <div class="events-attended-card col-12">
-                    <div class="card">
-                        <div
-                            class="card-header card-header-gradient-4 d-flex justify-content-between align-items-center">
-                            <h2 class="h5 mb-0">Top Users by Rewards</h2>
+        <!-- Main Content -->
+        <section class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="display-4 header-font">Hi {{ user.first_name }}!</h3>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Total Points</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% if has_attendance_this_month %}
-                                        {% for user in top_users %}
-                                        <tr>
-                                            <td>{{ user.attendee__first_name }} {{ user.attendee__last_name }}</td>
-                                            <td>{{ user.total_points }}</td>
-                                        </tr>
-                                        {% empty %}
-                                        <tr>
-                                            <td colspan="2">No data yet.</td>
-                                        </tr>
-                                        {% endfor %}
-                                        {% else %}
-                                        <tr>
-                                            <td colspan="2">No attendance registered this month… yet.</td>
-                                        </tr>
-                                        {% endif %}
-                                    </tbody>
-                                </table>
+                        <a href="{% url 'staff-notifications' %}" class="notification-bell">
+                            <div class="bell-icon">
+                                <span class="bell-body"></span>
+                                <span class="bell-clapper"></span>
+                            </div>
+                            {% if unread_count > 0 %}
+                            <span class="notification-dot"></span>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Sections -->
+            <section class="bottom-sections">
+                <div class="container-fluid">
+                    <!-- Top row: 3 cards -->
+                    <div class="row mb-4">
+                        <!-- Card 1: Total Users -->
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="card h-100">
+                                <div class="card-header card-header-gradient-1">
+                                    <h2 class="h5 mb-0">Total Registered Users</h2>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Add total users count from context -->
+                                    {{ total_users|default:"0" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Active This Month -->
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="card h-100">
+                                <div class="card-header card-header-gradient-2">
+                                    <h2 class="h5 mb-0">Registrations This Month</h2>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Add active users count from context -->
+                                    {{ active_users_this_month|default:"0" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Total Points Awarded -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-header card-header-gradient-3">
+                                    <h2 class="h5 mb-0">Total Points Awarded</h2>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Add total points from context -->
+                                    {{ total_points_awarded|default:"0" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom row: full-width top users table -->
+                    <div class="row">
+                        <div class="events-attended-card col-12">
+                            <div class="card">
+                                <div
+                                    class="card-header card-header-gradient-4 d-flex justify-content-between align-items-center">
+                                    <h2 class="h5 mb-0">Top Users by Rewards</h2>
+                                    <!-- Optional: Add action link like home.html -->
+                                    <!-- <a class="add-event-container" >View All</a> -->
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Total Points</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if has_attendance_this_month %}
+                                                {% for user in top_users %}
+                                                <tr>
+                                                    <td>{{ user.attendee__first_name }} {{ user.attendee__last_name }}
+                                                    </td>
+                                                    <td>{{ user.total_points }}</td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="2">No data yet.</td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% else %}
+                                                <tr>
+                                                    <td colspan="2">No attendance registered this month… yet.</td>
+                                                </tr>
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
+            </section>
+        </section>
     </div>
 </div>
 {% endblock %}
+
 
 
 <!-- TODO 

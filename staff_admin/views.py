@@ -88,8 +88,7 @@ def staff_notifications(request):
 
 # TODO:
 # Mark individual notifications as read
-# clear notifications - staff-notifications/ page, not on the dashboard. 
-# timezone for notifications
+# clear notifications - staff-notifications/ page, not on the dashboard.
 # Give 10 points for account creation
 
 

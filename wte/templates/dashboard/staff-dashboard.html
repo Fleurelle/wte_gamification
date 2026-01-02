@@ -77,11 +77,36 @@
                             <div class="card">
                                 <div
                                     class="card-header card-header-gradient-4 d-flex justify-content-between align-items-center">
-                                    <h2 class="h5 mb-0">Top Users This Month</h2>
+                                    <!-- <h2 class="h5 mb-0">Top Users This Month</h2> -->
                                     <!-- NOTE: Top Users during {{ current_month }} -->
                                     <!-- Optional: Add action link like home.html -->
                                     <!-- <a class="add-event-container" >View All</a> -->
+                                    <h2 class="h5 mb-0">
+                                        {% if mode == "all_time" %}
+                                        Top Users of All Time
+                                        {% elif mode == "this_year" %}
+                                        Top Users in {{ this_year }}
+                                        {% else %}
+                                        Top Users in {{this_month}} {{ this_year }}
+                                        {% endif %}
+                                    </h2>
+
+                                    <div style="display: flex; gap: 10px;">
+                                        <a href="?mode=this_month"
+                                            class="add-event-container {% if mode == 'this_month' %}active-mode{% endif %}">
+                                            This Month
+                                        </a>
+                                        <a href="?mode=this_year"
+                                            class="add-event-container {% if mode == 'this_year' %}active-mode{% endif %}">
+                                            This Year
+                                        </a>
+                                        <a href="?mode=all_time"
+                                            class="add-event-container {% if mode == 'all_time' %}active-mode{% endif %}">
+                                            All Time
+                                        </a>
+                                    </div>
                                 </div>
+
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped mb-0">
@@ -92,7 +117,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% if has_attendance_this_month %}
+                                                {% if has_attendance %}
                                                 {% for user in top_users %}
                                                 <tr>
                                                     <td>{{ user.attendee__first_name }} {{ user.attendee__last_name }}
@@ -106,7 +131,15 @@
                                                 {% endfor %}
                                                 {% else %}
                                                 <tr>
-                                                    <td colspan="2">No attendance registered this month… yet.</td>
+                                                    <td colspan="2">
+                                                        {% if mode == "all_time" %}
+                                                        No attendance records yet.
+                                                        {% elif mode == "this_year" %}
+                                                        No attendance registered this year… yet.
+                                                        {% else %}
+                                                        No attendance registered this month… yet.
+                                                        {% endif %}
+                                                    </td>
                                                 </tr>
                                                 {% endif %}
                                             </tbody>

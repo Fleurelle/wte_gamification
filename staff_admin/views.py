@@ -3,6 +3,7 @@ from django.db.models import Sum, Case, When, IntegerField
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from event_tracker.models import Attendance, Notification
+import calendar
 import pytz
 
 # staff_admin/views.py
@@ -11,10 +12,33 @@ import pytz
 def staff_dashboard(request):
     if not request.user.is_staff:
         return redirect("home")
+    
+    eastern_tz = pytz.timezone("America/New_York")
+    today = timezone.now().astimezone(eastern_tz).date()
+
+    this_year = today.year
+    this_month = calendar.month_name[today.month]
+    
+    # Which mode? default = this_month
+    mode = request.GET.get("mode", "this_month")
+
+    if mode == "all_time":
+        events_qs = Attendance.objects.all()
+    elif mode == "this_year":
+        events_qs = Attendance.objects.filter(
+            event_date__year=today.year,
+        )
+    else:
+        events_qs = Attendance.objects.filter(
+            event_date__year=today.year,
+            event_date__month=today.month,
+        )
+
+    has_attendance = events_qs.exists()
 
     # Top users by total rewards
     top_users = (
-        Attendance.objects
+        events_qs
         .values("attendee__id", "attendee__first_name", "attendee__last_name")
         .annotate(
             total_points=Sum(
@@ -36,24 +60,15 @@ def staff_dashboard(request):
     )
 
     unread_count = Notification.objects.filter(is_read=False).count()
-    print("DEBUG unread_count =", unread_count)
-
-    # Check if there is any attendance this month (Eastern)
-    eastern_tz = pytz.timezone("America/New_York")
-    today = timezone.now().astimezone(eastern_tz).date()
-
-    events_this_month = Attendance.objects.filter(
-        event_date__year=today.year,
-        event_date__month=today.month,
-    )
-
-    has_attendance_this_month = events_this_month.exists()
 
     context = {
         "top_users": top_users,
         "notifications": notifications,
         "unread_count": unread_count,
-        "has_attendance_this_month": has_attendance_this_month,
+        "has_attendance": has_attendance,
+        "mode": mode,
+        "this_year": this_year,
+        "this_month": this_month,
     }
     return render(request, "dashboard/staff-dashboard.html", context)
 
@@ -72,13 +87,6 @@ def staff_notifications(request):
     # Mark ALL as read
     if request.method == "POST" and request.POST.get('mark_all'):
         Notification.objects.filter(is_read=False).update(is_read=True)
-
-    # notifications = Notification.objects.select_related("user").order_by("-created_at")
-
-    # mark as read
-    # if request.method == "POST":
-    #     notifications.filter(is_read=False).update(is_read=True)
-    #     return redirect("staff-notifications")
 
     context = {
         "notifications": notifications,

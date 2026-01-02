@@ -80,13 +80,26 @@ def staff_notifications(request):
     notifications = Notification.objects.select_related("user").order_by("-created_at")
     
     # Mark individual notification as read
-    if request.method == "POST" and 'notification_id' in request.POST:
-        notification_id = request.POST['notification_id']
-        Notification.objects.filter(id=notification_id, is_read=False).update(is_read=True)
+    # if request.method == "POST" and 'notification_id' in request.POST:
+    #     notification_id = request.POST['notification_id']
+    #     Notification.objects.filter(id=notification_id, is_read=False).update(is_read=True)
+    if request.method == "POST":
+        # Clear ALL notifications (DELETE)
+        if request.POST.get('clear_all'):
+            Notification.objects.all().delete()
+        
+        # Mark individual notification as read
+        elif 'notification_id' in request.POST:
+            notification_id = request.POST['notification_id']
+            Notification.objects.filter(id=notification_id, is_read=False).update(is_read=True)
+
+        # Mark ALL as read
+        elif request.POST.get('mark_all'):
+            Notification.objects.filter(is_read=False).update(is_read=True)
 
     # Mark ALL as read
-    if request.method == "POST" and request.POST.get('mark_all'):
-        Notification.objects.filter(is_read=False).update(is_read=True)
+    # if request.method == "POST" and request.POST.get('mark_all'):
+    #     Notification.objects.filter(is_read=False).update(is_read=True)
 
     context = {
         "notifications": notifications,

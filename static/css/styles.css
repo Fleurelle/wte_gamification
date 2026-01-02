@@ -481,7 +481,6 @@ body {
 /* Staff Dashboard End */
 
 /* Notifications Page Start */
-/* Notification page styles */
 .notification-header {
     display: flex;
     justify-content: space-between;
@@ -566,6 +565,32 @@ body {
     color: #a1a5b7;
     font-style: italic;
     padding: 3rem;
+}
+
+.clear-all-btn {
+    background: #bc90dc;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-weight: 500;
+}
+
+.clear-all-btn:hover {
+    background: #8b4de8;
+}
+
+.clear-notification-item {
+    text-align: center;
+    color: #28a745;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border-left-color: #28a745;
 }
 
 /* Notifications Page End */

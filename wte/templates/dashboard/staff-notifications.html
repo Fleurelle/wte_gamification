@@ -6,12 +6,20 @@
     <div class="container py-5">
         <div class="notification-header">
             <h1>All Notifications</h1>
-            <form method="post" class="mark-all-form">
-                {% csrf_token %}
-                <button type="submit" name="mark_all" value="1" class="mark-all-btn">
-                    Mark all as read
-                </button>
-            </form>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <form method="post" class="mark-all-form">
+                    {% csrf_token %}
+                    <button type="submit" name="mark_all" value="1" class="mark-all-btn">
+                        Mark all as read
+                    </button>
+                </form>
+                <form method="post" class="clear-all-form">
+                    {% csrf_token %}
+                    <button type="submit" name="clear_all" value="1" class="clear-all-btn">
+                        Clear All Notifications
+                    </button>
+                </form>
+            </div>
         </div>
 
         <ul class="notifications-list">
@@ -20,23 +28,32 @@
                 <form method="post" class="mark-read-form" style="display: inline;">
                     {% csrf_token %}
                     <input type="hidden" name="notification_id" value="{{ notification.id }}">
-                    <button type="submit" class="mark-read-btn" style="background: none; border: none; padding: 0;"></button>
+                    <button type="submit" class="mark-read-btn"
+                        style="background: none; border: none; padding: 0;"></button>
                 </form>
                 <div class="notification-content">
                     <strong>{{ notification.get_type_display }}:</strong>
                     {{ notification.message }}
                     <div class="notification-meta">
-                        {{ notification.created_at }} — from {{ notification.user.get_full_name|default:notification.user.username }}
+                        {{ notification.created_at }} — from {{
+                        notification.user.get_full_name|default:notification.user.username }}
                     </div>
                 </div>
             </li>
             {% empty %}
-            <li class="notification-item empty">No notifications yet.</li>
+            {% if notifications.exists %}
+            <li class="notification-item empty">No notifications match your filters.</li>
+            {% else %}
+            <li class="clear-notification-item empty caught-up">
+                You're all caught up! 🥳
+            </li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
 </div>
 {% endblock %}
+
 
 
 <!-- TODO

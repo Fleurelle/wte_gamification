@@ -37,14 +37,14 @@ This project, with the support of R. Jean Louis at ENGINUITi Solutions, serves t
 
     * Real-time notifications system
 
-# Notifications System
-* Individual mark as read
+* Notifications System
+    * Individual mark as read
 
-* Mark all as read
+    * Mark all as read
 
-* Clear all notifications (staff only)
+    * Clear all notifications (staff only)
 
-* Staff alerting for new account and event registrations
+    * Staff alerting for new account and event registrations
 
 # 📋 Quick Setup
 1. Clone & Environment

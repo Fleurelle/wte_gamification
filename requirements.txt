@@ -10,5 +10,5 @@ python-dotenv==1.2.1
 pytz==2025.2
 sqlparse==0.5.4
 tzdata==2025.2
-psycopg2-binary==2.9.12
+psycopg2-binary==2.9.11
 whitenoise==6.8.0

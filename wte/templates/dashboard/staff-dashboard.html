@@ -32,7 +32,7 @@
                     <!-- Top row: 3 cards -->
                     <div class="row mb-4">
                         <!-- Card 1: Total Users -->
-                        <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="col-md-6 mb-3 mb-md-0">
                             <div class="card h-100">
                                 <div class="card-header card-header-gradient-1">
                                     <h2 class="h5 mb-0">Total Registered Users</h2>
@@ -44,31 +44,30 @@
                             </div>
                         </div>
 
-                        <!-- Card 2: Active This Month -->
-                        <div class="col-md-4 mb-3 mb-md-0">
+                        <!-- Card 2: Registrations This Month -->
+                        <div class="col-md-6 mb-3 mb-md-0">
                             <div class="card h-100">
                                 <div class="card-header card-header-gradient-2">
                                     <h2 class="h5 mb-0">Registrations This Month</h2>
                                 </div>
                                 <div class="card-body">
                                     <!-- Add active users count from context -->
-                                    {{ active_users_this_month|default:"0" }}
+                                    {{ registrations_this_month|default:"0" }}
                                 </div>
                             </div>
                         </div>
 
                         <!-- Card 3: Total Points Awarded -->
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="card h-100">
                                 <div class="card-header card-header-gradient-3">
                                     <h2 class="h5 mb-0">Total Points Awarded</h2>
                                 </div>
                                 <div class="card-body">
-                                    <!-- Add total points from context -->
                                     {{ total_points_awarded|default:"0" }}
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Bottom row: full-width top users table -->
@@ -77,17 +76,13 @@
                             <div class="card">
                                 <div
                                     class="card-header card-header-gradient-4 d-flex justify-content-between align-items-center">
-                                    <!-- <h2 class="h5 mb-0">Top Users This Month</h2> -->
-                                    <!-- NOTE: Top Users during {{ current_month }} -->
-                                    <!-- Optional: Add action link like home.html -->
-                                    <!-- <a class="add-event-container" >View All</a> -->
                                     <h2 class="h5 mb-0">
                                         {% if mode == "all_time" %}
-                                        Top Users of All Time
+                                            Top Users of All Time
                                         {% elif mode == "this_year" %}
-                                        Top Users in {{ this_year }}
+                                            Top Users in {{ this_year }}
                                         {% else %}
-                                        Top Users in {{this_month}} {{ this_year }}
+                                            Top Users in {{this_month}} {{ this_year }}
                                         {% endif %}
                                     </h2>
 
@@ -133,11 +128,11 @@
                                                 <tr>
                                                     <td colspan="2">
                                                         {% if mode == "all_time" %}
-                                                        No attendance records yet.
+                                                            No attendance records yet.
                                                         {% elif mode == "this_year" %}
-                                                        No attendance registered this year… yet.
+                                                            No attendance registered this year… yet.
                                                         {% else %}
-                                                        No attendance registered this month… yet.
+                                                            No attendance registered this month… yet.
                                                         {% endif %}
                                                     </td>
                                                 </tr>

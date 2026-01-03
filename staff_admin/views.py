@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Sum, Case, When, IntegerField
 from django.shortcuts import render, redirect
@@ -17,6 +18,26 @@ def staff_dashboard(request):
 
     this_year = today.year
     this_month = calendar.month_name[today.month]
+    
+    # TOTAL REGISTERED USERS
+    total_users = User.objects.count()
+
+    # Users who registered this month
+    registrations_this_month = User.objects.filter(
+        date_joined__year=today.year,
+        date_joined__month=today.month,
+    ).count()
+
+    # Total points awarded (sum of all attendance points)
+    total_points_awarded = Attendance.objects.aggregate(
+        total=Sum(
+            Case(
+                When(activity_type="event_external", then=8),
+                default=10,
+                output_field=IntegerField(),
+            )
+        )
+    )['total'] or 0
     
     # Which mode? default = this_month
     mode = request.GET.get("mode", "this_month")
@@ -63,6 +84,8 @@ def staff_dashboard(request):
     unread_count = Notification.objects.filter(is_read=False).count()
 
     context = {
+        "total_users": total_users,
+        "registrations_this_month": registrations_this_month,
         "top_users": top_users,
         "notifications": notifications,
         "unread_count": unread_count,

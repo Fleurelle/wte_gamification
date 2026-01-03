@@ -6,8 +6,6 @@ from event_tracker.models import Attendance, Notification
 import calendar
 import pytz
 
-# staff_admin/views.py
-
 @login_required
 def staff_dashboard(request):
     if not request.user.is_staff:
@@ -102,11 +100,5 @@ def staff_notifications(request):
         "notifications": notifications,
     }
     return render(request, "dashboard/staff-notifications.html", context)
-
-
-# TODO:
-# Mark individual notifications as read
-# clear notifications - staff-notifications/ page, not on the dashboard.
-# Give 10 points for account creation
 
 

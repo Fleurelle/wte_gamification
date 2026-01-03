@@ -519,20 +519,27 @@ body {
 }
 
 .notification-item {
-    padding: 1.25rem;
+    position: relative;                       
+    padding: 1.25rem 3rem 1.25rem 1.25rem;    
     margin-bottom: 0.5rem;
     border-radius: 12px;
     background: #ffffff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border-left: 4px solid #593196;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    cursor: default;                           
+    transition: all 0.3s ease;                 
     opacity: 1;
+    overflow: hidden;                          
 }
 
 .notification-item:hover {
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     transform: translateY(-1px);
+}
+
+.notification-item:hover .delete-form {
+    transform: translateX(0);                  
+    opacity: 1;                                
 }
 
 .notification-item.read {
@@ -542,6 +549,39 @@ body {
 
 .notification-item.read:hover {
     opacity: 0.8;
+}
+
+.delete-form {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
+    transform: translateX(100%);             
+    opacity: 0;                               
+    transition: all 0.3s ease;               
+}
+
+.delete-btn {
+    background: #f8f9fa;                      
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background: #dc3545;                     
+    color: white;
+    border-color: #dc3545;
+    transform: scale(1.05);
 }
 
 .notification-content {

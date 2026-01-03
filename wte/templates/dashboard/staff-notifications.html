@@ -25,11 +25,12 @@
         <ul class="notifications-list">
             {% for notification in notifications %}
             <li class="notification-item{% if notification.is_read %} read{% endif %}">
-                <form method="post" class="mark-read-form" style="display: inline;">
+                <form method="post" class="delete-form">
                     {% csrf_token %}
-                    <input type="hidden" name="notification_id" value="{{ notification.id }}">
-                    <button type="submit" class="mark-read-btn"
-                        style="background: none; border: none; padding: 0;"></button>
+                    <input type="hidden" name="delete_id" value="{{ notification.id }}">
+                    <button type="submit" class="delete-btn" title="Delete notification">
+                        ✕
+                    </button>
                 </form>
                 <div class="notification-content">
                     <strong>{{ notification.get_type_display }}:</strong>

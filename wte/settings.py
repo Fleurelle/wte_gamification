@@ -40,9 +40,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt
 DEBUG = 'DEBUG_VAR' not in os.environ
 print(f'DEBUG={DEBUG}')
 
-ALLOWED_HOSTS = [
-    'wte-gamification.onrender.com'
-]
+ALLOWED_HOSTS = [*]
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
@@ -94,19 +92,19 @@ WSGI_APPLICATION = 'wte.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://postgres:postgres@localhost:5432/wte_gamification',
-#         conn_max_age=600
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://postgres:postgres@localhost:5432/wte_gamification',
+        conn_max_age=600
+    )
+}
 
 
 # Password validation

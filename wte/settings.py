@@ -36,7 +36,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = [
     'wte-gamification.onrender.com'

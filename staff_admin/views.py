@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Sum, Case, When, IntegerField
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -35,20 +36,22 @@ def staff_dashboard(request):
     has_attendance = events_qs.exists()
 
     # Top users by total rewards
-    top_users = (
-        events_qs
-        .values("attendee__id", "attendee__first_name", "attendee__last_name")
-        .annotate(
-            total_points=Sum(
-                Case(
-                    When(activity_type="event_external", then=8),
-                    default=10,
-                    output_field=IntegerField(),
+    top_users_paginator = Paginator(
+            events_qs
+            .values("attendee__id", "attendee__first_name", "attendee__last_name")
+            .annotate(
+                total_points=Sum(
+                    Case(
+                        When(activity_type="event_external", then=8),
+                        default=10,
+                        output_field=IntegerField(),
+                    )
                 )
             )
+            .order_by("-total_points"), 10
         )
-        .order_by("-total_points")
-    )
+
+    top_users = top_users_paginator.get_page(request.GET.get("page", 1))
 
     # Latest notifications
     notifications = (

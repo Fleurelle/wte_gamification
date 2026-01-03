@@ -144,6 +144,55 @@
                                                 {% endif %}
                                             </tbody>
                                         </table>
+                                        <!-- PAGINATION -->
+                                        {% if has_attendance and top_users.paginator.num_pages > 1 %}
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <div>
+                                                <!-- Page info: This pushes the pagination components to the right -->
+                                            </div>
+
+                                            <nav aria-label="Users pagination">
+                                                <ul class="pagination mb-0">
+                                                    {% if top_users.has_previous %}
+                                                        <li class="page-item">
+                                                            <a class="page-link"
+                                                                href="?mode={{ mode }}&page={{ top_users.previous_page_number }}">
+                                                                Previous
+                                                            </a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="page-item disabled">
+                                                            <span class="page-link">Previous</span>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    {% for num in top_users.paginator.page_range %}
+                                                        {% if top_users.number == num %}
+                                                            <li class="page-item active">
+                                                                <span class="page-link">{{ num }}</span>
+                                                            </li>
+                                                        {% elif num > top_users.number|add:'-3' and num < top_users.number|add:'3' %} 
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="?mode={{ mode }}&page={{ num }}">{{ num }}</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    {% if top_users.has_next %}
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?mode={{ mode }}&page={{ top_users.next_page_number }}">
+                                                                Next
+                                                            </a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="page-item disabled">
+                                                            <span class="page-link">Next</span>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

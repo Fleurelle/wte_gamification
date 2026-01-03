@@ -35,8 +35,7 @@
                     <strong>{{ notification.get_type_display }}:</strong>
                     {{ notification.message }}
                     <div class="notification-meta">
-                        {{ notification.created_at }} — from {{
-                        notification.user.get_full_name|default:notification.user.username }}
+                        {{ notification.created_at }}
                     </div>
                 </div>
             </li>

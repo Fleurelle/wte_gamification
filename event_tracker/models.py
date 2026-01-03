@@ -7,7 +7,7 @@ from django.utils import timezone
 
 class Attendance(models.Model):
     ACTIVITY_TYPE_CHOICES = [
-        ("event_internal", "WTE Event"),
+        ("event_internal", "WTE Happy Hour"),
         ("event_external", "External Event"),
         ("social_media", "Social Media Engagement"),
         ("slack", "Slack Engagement"),
@@ -52,7 +52,7 @@ class Attendance(models.Model):
 class Notification(models.Model):
     NOTIFICATION_TYPES = [
         ("attendance", "Attendance"),
-        ("signup", "New Account Created"),
+        ("signup", "User Registration"),
     ]
 
     type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES)

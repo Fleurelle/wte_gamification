@@ -1,4 +1,3 @@
-# wte_gamification
 # Women in Tech & Entrepreneurship - Member Engagement Platform
 # 🎯 Project Overview
 Women in Tech and Entrepreneurship is a groundbreaking organization, on a mission to support the most ambitious and innovative women at every stage of their journey in technology and entrepreneurship.

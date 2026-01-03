@@ -6,9 +6,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import CreateView
 
 from .forms import CustomUserCreationForm
+from event_tracker.views import Attendance, Notification
 
 
 @login_required
@@ -23,6 +25,31 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
+
+    def form_valid(self, form):
+        # Create user normally
+        response = super().form_valid(form)
+        
+        # Auto-award 10 signup points
+        user = self.object
+        
+        Attendance.objects.create(
+            attendee=user,
+            event_name="🎉 Welcome Bonus",
+            event_date=timezone.now().date(),
+            event_organizer="System",
+            activity_type="other",  # Signup bonus
+        )
+        
+        # Create staff notification
+        # Notification.objects.create(
+        #     type="signup",
+        #     user=user,
+        #     message=f"New user {user.username} ({user.first_name} {user.last_name or ''}) just joined!",
+        # )
+
+        return response
+        
 
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'

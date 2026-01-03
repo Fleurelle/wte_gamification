@@ -38,7 +38,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'https://wte-gamification.onrender.com/'
+    'wte-gamification.onrender.com'
 ]
 
 LOGIN_REDIRECT_URL = "home"

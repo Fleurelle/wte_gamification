@@ -44,7 +44,7 @@ This project, with the support of R. Jean Louis at ENGINUITi Solutions, serves t
 
 * Clear all notifications (staff only)
 
-* Staff alerting for new signups
+* Staff alerting for new account and event registrations
 
 # 📋 Quick Setup
 1. Clone & Environment

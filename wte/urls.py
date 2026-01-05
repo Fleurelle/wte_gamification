@@ -15,5 +15,6 @@ urlpatterns = [
     # path("", TemplateView.as_view(template_name="home.html"), name="home")
     # path("", etv.HomeView.as_view(), name="home"),
     path("", etv.home_router, name="home"),
-    path("staff/", include("staff_admin.urls")),
+    path("staff/", include("staff_admin.urls")),    
+    path('feedback/', uav.submit_feedback, name='submit_feedback'),
 ]

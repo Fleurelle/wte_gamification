@@ -160,4 +160,38 @@
       </section>
   </div>
 </div>
+<!-- Floating Feedback Button + Modal -->
+<!-- Floating Feedback Button + Modal -->
+<div class="feedback-fab-container">
+  <!-- Floating Action Button -->
+  <button class="feedback-fab" id="feedbackBtn" title="Send Feedback">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+    </svg>
+  </button>
+
+  <!-- Feedback Modal -->
+  <div class="feedback-modal" id="feedbackModal">
+    <div class="feedback-modal-content">
+      <div class="feedback-modal-header">
+        <h3>Send Feedback</h3>
+        <button class="feedback-close" id="closeFeedback">&times;</button>
+      </div>
+      <form method="post" action="{% url 'submit_feedback' %}">
+        {% csrf_token %}
+        <div class="feedback-field">
+          <label for="feedback_subject">Subject</label>
+          <input type="text" id="feedback_subject" name="subject" required maxlength="100">
+        </div>
+        <div class="feedback-field">
+          <label for="feedback_description">Description</label>
+          <textarea id="feedback_description" name="description" rows="5" required maxlength="1000"></textarea>
+        </div>
+        <button type="submit" class="feedback-submit">Send Feedback</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 {% endblock %}

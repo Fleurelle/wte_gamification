@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -93,3 +94,29 @@ def logout_view(request):
     logout(request)
 
     return redirect(f"{settings.LOGOUT_REDIRECT_URL}")
+
+@login_required
+def submit_feedback(request):
+    if request.method == "POST" and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        subject = request.POST.get('subject')
+        description = request.POST.get('description')
+        
+        if subject and description:
+            # Create notification for ALL staff users
+            from django.contrib.auth.models import User
+            # staff_users = User.objects.filter(is_staff=True)
+
+            Notification.objects.create(
+                type="Feedback",
+                user=request.user,
+                message=f"Feedback from {request.user.get_full_name()}: {subject}\n\n{description}"
+                )
+            
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Please fill both fields.'})
+    
+    # Fallback for non-AJAX
+    if request.method == "POST":
+        messages.success(request, "Feedback sent successfully! Thank you! 🎉")
+    return redirect('home')

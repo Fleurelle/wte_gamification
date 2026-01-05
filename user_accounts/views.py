@@ -9,15 +9,37 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, UserProfileForm
 from event_tracker.views import Attendance, Notification
 
 
 @login_required
 def user_profile(request, pk):
-    user_obj = get_object_or_404(User, pk=pk)
+    # user_obj = get_object_or_404(User, pk=pk)
+    # context = {
+    #     "user_obj": user_obj,
+    # }
+    # return render(request, "registration/profile.html", context)
+        # Only allow users to edit their own profile
+    if pk != str(request.user.pk):
+        return redirect("home")
+    
+    user = request.user
+    
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated successfully!")
+            return redirect("profile", pk=request.user.pk)
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = UserProfileForm(instance=user)
+    
     context = {
-        "user_obj": user_obj,
+        "form": form,
+        "user": user,
     }
     return render(request, "registration/profile.html", context)
 

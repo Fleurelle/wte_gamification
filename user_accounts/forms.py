@@ -44,13 +44,3 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email']
-        widgets = {
-            # 'first_name': forms.TextInput(attrs={'class': 'event-input'}),
-            # 'last_name': forms.TextInput(attrs={'class': 'event-input'}),
-            'email': forms.EmailInput(attrs={'class': 'event-input'}),
-        }

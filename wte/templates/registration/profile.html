@@ -14,65 +14,44 @@
                     </div>
                     <div class="profile-info">
                         <h3 class="profile-name">{{ user.get_full_name }}</h3>
-                        <span class="profile-email">{{ user.email|default:"No email" }}</span>
+                        <span class="profile-email">{{ user.email }}</span>
                     </div>
                 </div>
-            </div>
-            {% if form %}
-            <button type="submit" form="profile-form" class="btn-edit">Save Changes</button>
-            {% else %}
-            <a href="{% url 'profile' user.pk %}" class="btn-edit">Edit Profile</a>
-            {% endif
-        </div>
-
-        <!-- Form-style info layout -->
-        <div class="profile-grid">
-            <div class="profile-field">
-                <label>First Name</label>
-                <div class="field-value">{{ user.first_name }}</div>
+                <button class="btn-edit">Edit</button>
             </div>
 
-            <div class="profile-field">
-                <label>Last Name</label>
-                <div class="field-value">{{ user.last_name }}</div>
-            </div>
+            <!-- Form-style info layout -->
+            <div class="profile-grid">
+                <div class="profile-field">
+                    <label>First Name</label>
+                    <div class="field-value">{{ user.first_name }}</div>
+                </div>
 
-            <div class="profile-field">
-                <label>Username</label>
-                <div class="field-value">{{ user.username }}</div>
-            </div>
+                <div class="profile-field">
+                    <label>Last Name</label>
+                    <div class="field-value">{{ user.last_name }}</div>
+                </div>
 
-            <div class="profile-field">
-                <label>Email</label>
-                <div class="field-value">{{ form.email }}</div>
-            </div>
+                <div class="profile-field">
+                    <label>Username</label>
+                    <div class="field-value">{{ user.username }}</div>
+                </div>
 
-            <!-- <div class="profile-field">
-                <label>Country</label>
-                <div class="field-value">{{ profile.country }}</div>
-            </div> -->
+                <div class="profile-field">
+                    <label>Email</label>
+                    <div class="field-value">{{ user.email }}</div>
+                </div>
 
-            <div class="profile-field">
-                <label>Date Joined</label>
-                <div class="field-value">{{ user.date_joined|date:"F j, Y" }}</div>
+                <div class="profile-field">
+                    <label>Country</label>
+                    <div class="field-value">{{ profile.country }}</div>
+                </div>
             </div>
         </div>
-        {% if messages %}
-        <div class="mt-4">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
     </div>
-</div>
 </div>
 
 {% endblock %}
 
 <!-- TODO 
- a) Change password 
- b) Forgot password at login - which means I will have to send an email of sorts to the user. Or contact the admin.-->
+ a) Change password -->

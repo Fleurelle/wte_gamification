@@ -63,10 +63,13 @@
                         if (data.success) {
                             // Show success message and close modal
                             modal.innerHTML = `
-                    <div style="padding: 40px; text-align: center; color: white;">
+                    <div style="padding: 150px; text-align: center; color: white;">
                         <h3>Feedback Sent Successfully!</h3>
                         <p>Thank you for your feedback! Our team has been notified. 🎉</p>
-                        <button onclick="location.reload()" style="background: #593196; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 1rem; cursor: pointer; margin-top: 20px;">Done</button>
+                        <button onclick="location.reload()" 
+                        style="background: #593196; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 1rem; cursor: pointer; margin-top: 20px;">
+                            Done
+                        </button>
                     </div>
                 `;
                         } else {

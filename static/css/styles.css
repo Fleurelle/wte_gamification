@@ -2,10 +2,6 @@
    background-color: rgb(239, 215, 215);
 } */
 
-html, body {
-  font-family: 'abhaya libre';
-}
-
 /* sidebar Start */
 .sidebar-fixed {
   position: fixed;
@@ -218,6 +214,12 @@ body {
 .bottom-sections .card-body {
   flex-grow: 1;
   overflow-y: auto;
+}
+
+.tally-count {
+  font-family: 'abhaya libre';
+  font-size: large;
+  text-align: center;
 }
 
 .card-header h2,

@@ -109,7 +109,7 @@ def submit_feedback(request):
             Notification.objects.create(
                 type="Feedback",
                 user=request.user,
-                message=f"Feedback from {request.user.get_full_name()}: {subject}\n\n{description}"
+                message=f"Feedback from {request.user.get_full_name()} regarding {subject}\n\n. Description: {description}"
                 )
             
             return JsonResponse({'success': True})
